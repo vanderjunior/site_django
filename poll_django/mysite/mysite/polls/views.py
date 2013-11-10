@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from mysite.polls.models import Poll
-from django.http import HttpResponse
 
 
 def index(request):
@@ -9,4 +8,5 @@ def index(request):
     return render_to_response('polls/index.html', {'latest_poll_list': latest_poll_list})
 
 def detail(request, poll_id):
-    return HttpResponse("You are look at poll %s." % poll_id)
+    p = get_object_or_404(Poll, pk=poll_id)
+    return render_to_response('polls/detail.html', {'poll': p})
